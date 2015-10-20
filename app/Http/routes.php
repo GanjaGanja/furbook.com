@@ -15,16 +15,6 @@ Route::get('/', function () {
     return redirect('cats');
 });
 
-// Route::get('cats', function ()
-// {
-// 	return 'All cats';
-// });
-
-Route::get('cats/{id}', function ($id)
-{
-	return sprintf('Cat #%s', $id);
-})->where('id', '[0-9]+');
-
 Route::get('about', function ()
 {
 	return view('about')->with('number_of_cats', 9000);
@@ -44,4 +34,16 @@ Route::get('cats/breeds/{name}', function ($name)
 	return view('cats.index')
 		->with('breed', $breed)
 		->with('cats', $breed->cats);
+});
+
+// Route::get('cats/{id}', function ($id)
+// {
+// 	$cat = Furbook\Cat::find($id);
+// 	return view('cats.show')->with('cat', $cat);
+// };
+
+// Use route-model binding with 'RouteServiceProvider'
+Route::get('cats/{cat}', function (Furbook\Cat $cat)
+{
+	return view('cats.show')->with('cat', $cat);
 });
