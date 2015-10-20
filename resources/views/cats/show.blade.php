@@ -1,4 +1,5 @@
 @extends('layouts.master')
+
 @section('header')
 	<a href="{{ url('/') }}">Back to overview</a>
 	<h2>
@@ -14,6 +15,7 @@
 	</a>
 	<p>Last edited: {{ $cat->updated_at->diffForHumans() }}</p>
 @stop
+
 @section('content')
 	<p>Date of Birth: {{ $cat->date_of_birth }}</p>
 	<p>

@@ -1,4 +1,5 @@
 @extends('layouts.master')
+
 @section('header')
 	@if (isset($breed))
 		<a href="{{ url('/') }}">Back to the overview</a>
@@ -10,6 +11,7 @@
 		</a>
 	</h2>
 @stop
+
 @section('content')
 	@foreach ($cats as $cat)
 		<div class="cat">

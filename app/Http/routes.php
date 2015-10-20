@@ -47,3 +47,31 @@ Route::get('cats/{cat}', function (Furbook\Cat $cat)
 {
 	return view('cats.show')->with('cat', $cat);
 });
+
+Route::get('cats/create', function ()
+{
+	return view('cats.create');
+});
+
+Route::post('cats', function ()
+{
+	$cat = Furbook\Cat::create(Input::all());
+	return redirect('cats/'.$cat->id)->withSuccess('Cat has been created.');
+});
+
+Route::get('cats/{cat}/edit', function (Furbook\Cat $cat)
+{
+	return view('cats.edit')->with('cat', $cat);
+});
+
+Route::put('cats/{cat}', function (Furbook\Cat $cat)
+{
+	$cat->update(Input::all());
+	return redirect('cats/'.$cat->id)->withSuccess('Cat has been updated.');
+});
+
+Route::delete('cats/{cat}', function (Furbook\Cat $cat)
+{
+	$cat->delete();
+	return redirect('cats')->withSuccess('Cat has been deleted.');
+});
