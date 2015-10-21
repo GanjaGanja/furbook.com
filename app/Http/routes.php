@@ -20,6 +20,10 @@ Route::get('about', function ()
 	return view('about')->with('number_of_cats', 9000);
 });
 
+///////////////////////////////////////////////////////////////
+// Index, store, create, update, destroy, show and edit cats //
+///////////////////////////////////////////////////////////////
+
 Route::get('cats', function ()
 {
 	$cats = Furbook\Cat::all();
@@ -36,32 +40,15 @@ Route::get('cats/breeds/{name}', function ($name)
 		->with('cats', $breed->cats);
 });
 
-// Route::get('cats/{id}', function ($id)
-// {
-// 	$cat = Furbook\Cat::find($id);
-// 	return view('cats.show')->with('cat', $cat);
-// };
-
-// Use route-model binding with 'RouteServiceProvider'
-Route::get('cats/{cat}', function (Furbook\Cat $cat)
-{
-	return view('cats.show')->with('cat', $cat);
-});
-
-Route::get('cats/create', function ()
-{
-	return view('cats.create');
-});
-
 Route::post('cats', function ()
 {
 	$cat = Furbook\Cat::create(Input::all());
 	return redirect('cats/'.$cat->id)->withSuccess('Cat has been created.');
 });
 
-Route::get('cats/{cat}/edit', function (Furbook\Cat $cat)
+Route::get('cats/create', function ()
 {
-	return view('cats.edit')->with('cat', $cat);
+	return view('cats.create');
 });
 
 Route::put('cats/{cat}', function (Furbook\Cat $cat)
@@ -70,8 +57,38 @@ Route::put('cats/{cat}', function (Furbook\Cat $cat)
 	return redirect('cats/'.$cat->id)->withSuccess('Cat has been updated.');
 });
 
-Route::delete('cats/{cat}', function (Furbook\Cat $cat)
+// Route::delete('cats/{cat}/delete', function (Furbook\Cat $cat)
+// {
+// 	$cat->delete();
+// 	return redirect('cats')->withSuccess('Cat has been deleted.');
+// });
+
+// Use 'get' route to delete cats
+Route::get('cats/{cat}/delete', function (Furbook\Cat $cat)
 {
 	$cat->delete();
 	return redirect('cats')->withSuccess('Cat has been deleted.');
 });
+
+// Route::get('cats/{id}', function ($id)
+// {
+// 	$cat = Furbook\Cat::find($id);
+// 	return view('cats.show')->with('cat', $cat);
+// });
+
+// Use route-model binding with 'RouteServiceProvider'
+Route::get('cats/{cat}', function (Furbook\Cat $cat)
+{
+	return view('cats.show')->with('cat', $cat);
+});
+
+Route::get('cats/{cat}/edit', function (Furbook\Cat $cat)
+{
+	return view('cats.edit')->with('cat', $cat);
+});
+
+//////////////////////////////////////////////
+// All actions by using resource controller //
+//////////////////////////////////////////////
+
+//Route::resource('cat', 'CatController');
