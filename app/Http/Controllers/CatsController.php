@@ -86,13 +86,14 @@ class CatsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * Метод не работает.
+     * Метод работает только при указании $id.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cat $cat)
+    public function destroy($id)
     {
+        $cat = Cat::find($id);
         $cat->delete();
         return redirect('cats')->withSuccess('Cat has been deleted.');
     }

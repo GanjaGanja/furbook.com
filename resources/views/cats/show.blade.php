@@ -5,14 +5,22 @@
 	<h2>
 		{{ $cat->name }}
 	</h2>
-	<a href="{{ url('cats/'.$cat->id.'/edit') }}">
+	{{-- <a href="{{ url('cats/'.$cat->id.'/edit') }}">
 		<span class="glyphicon glyphicon-edit"></span>
 			Edit
 	</a>
 	<a href="{{ url('cats/'.$cat->id.'/delete') }}">
 		<span class="glyphicon glyphicon-trash"></span>
 			Delete
-	</a>
+	</a> --}}
+	{!! Form::model($cat, ['url' => '/cats/'.$cat->id, 'method' => 'DELETE']) !!}
+		<a href="{{ url('cats/'.$cat->id.'/edit') }}">
+			<span class="glyphicon glyphicon-edit"></span>
+				Edit
+		</a>
+		<span class="glyphicon glyphicon-trash"></span>
+			{!! Form::submit('Delete') !!}
+	{!! Form::close() !!}
 	<p>Last edited: {{ $cat->updated_at->diffForHumans() }}</p>
 @stop
 
